@@ -1,0 +1,173 @@
+<h1>Listing Devices</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, AutoWateringWeb.DeviceLive.FormComponent,
+    id: @device.id || :new,
+    title: @page_title,
+    action: @live_action,
+    current_user: @current_user,
+    device: @device,
+    return_to: Routes.device_index_path(@socket, :index) %>
+<% end %>
+
+
+
+<div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+  <div class="md:flex">
+    <div class="md:flex-shrink-0">
+      <img class="h-48 w-full object-cover md:w-48" src="https://i.ytimg.com/vi/zeeXLCtiw-I/maxresdefault.jpg" alt="Man looking at item at a store">
+    </div>
+    <div class="p-8">
+      <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Case study</div>
+      <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Finding customers for your new business</a>
+      <p class="mt-2 text-gray-500">Getting a new business off the ground is a lot of hard work. Here are five ideas you can use to find your first customers.</p>
+    </div>
+  </div>
+</div>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Device</th>
+      <th>Plant</th>
+      <th>Fixed schedule</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="devices">
+    <%= for device <- @devices do %>
+      <tr id="device-<%= device.id %>">
+        <td><%= device.device_id %></td>
+        <td><%= device.plant %></td>
+        <td><%= device.fixed_schedule %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.device_show_path(@socket, :show, device) %></span>
+          <span><%= live_patch "Edit", to: Routes.device_index_path(@socket, :edit, device) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: device.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+
+<span><%= live_patch "New Device", to: Routes.device_index_path(@socket, :new) %></span>
+
+
+
+<div class="max-w-2xl bg-white border-2 border-gray-300 p-5 rounded-md tracking-wide shadow-lg">
+      <div id="header" class="flex">
+         <img alt="mountain" class="w-45 rounded-md border-2 border-gray-300" src="https://picsum.photos/seed/picsum/200" />
+         <div id="body" class="flex flex-col ml-5">
+            <h4 id="name" class="text-xl font-semibold mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
+            <p id="job" class="text-gray-800 mt-2">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <div class="flex mt-5">
+               <img alt="avatar" class="w-6 rounded-full border-2 border-gray-300" src="https://picsum.photos/seed/picsum/200" />
+               <p class="ml-3">John Doe</p>
+            </div>
+         </div>
+      </div>
+   </div>
+
+<!-- component -->
+<div
+								class="container mb-2 flex mx-auto w-full items-center justify-center"
+							>
+								<ul class="flex flex-col p-4">
+									<li class="border-gray-400 flex flex-row">
+										<div
+											class="select-none flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-2 p-6 hover:shadow-2xl border-red-400"
+										>
+											<div class="flex-1 pl-1 mr-16">
+												<div class="font-medium">
+													Product-Based Service Based or Hybrid?
+												</div>
+											</div>
+											<div
+												class="w-1/4 text-wrap text-center flex text-white text-bold flex-col rounded-md bg-red-500 justify-center items-center mr-10 p-2"
+											>
+												B2C
+											</div>
+										</div>
+									</li>
+									<li class="border-gray-400 flex flex-row mb-2">
+										<div
+											class="select-none rounded-md flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-2 p-6 mt-3 border-red-400 hover:shadow-2xl"
+										>
+											<div class="flex-1 pl-1 mr-16">
+												<div class="font-medium">
+													Target audience of startup
+												</div>
+											</div>
+											<div
+												class="w-1/4 text-wrap text-center text-white text-bold flex flex-col rounded-md bg-red-500 justify-center items-center mr-10 p-2"
+											>
+												Adult
+											</div>
+										</div>
+									</li>
+									<li class="border-gray-400 flex flex-row mb-2">
+										<div
+											class="select-none rounded-md flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-2 p-6 mt-3 border-red-400 hover:shadow-2xl"
+										>
+											<div class="flex-1 pl-1 mr-16">
+												<div class="font-medium">Domain of the startup</div>
+											</div>
+											<div
+												class="flex w-1/4 text-wrap text-center flex-col text-white text-bold rounded-md bg-red-500 justify-center items-center mr-10 p-2"
+											>
+												Health and Foodtech
+											</div>
+										</div>
+									</li>
+									<li class="border-gray-400 flex flex-row mb-2">
+										<div
+											class="select-none rounded-md flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-2 p-6 mt-3 border-red-400 hover:shadow-2xl"
+										>
+											<div class="flex-1 pl-1 mr-16">
+												<div class="font-medium">
+													Rounds of fundraising taken
+												</div>
+											</div>
+											<div
+												class="w-1/4 text-wrap text-center flex flex-col text-white text-bold rounded-md bg-red-500 justify-center items-center mr-10 p-2"
+											>
+												Series B
+											</div>
+										</div>
+									</li>
+									<li class="border-gray-400 flex flex-row mb-2">
+										<div
+											class="select-none rounded-md flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-2 p-6 mt-3 border-red-400 hover:shadow-2xl"
+										>
+											<div class="flex-1 pl-1 mr-16">
+												<div class="font-medium">Funds Raised</div>
+											</div>
+											<div
+												class="w-1/4 text-wrap text-center flex flex-col text-white text-bold rounded-md bg-red-500 justify-center items-center mr-10 p-2"
+											>
+												69
+											</div>
+										</div>
+									</li>
+									<li class="border-gray-400 flex flex-row mb-2">
+										<div
+											class="select-none rounded-md flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-2 p-6 mt-3 border-red-400 hover:shadow-2xl"
+										>
+											<div class="flex-1 pl-1 mr-16">
+												<div class="font-medium">Recruiment Status</div>
+											</div>
+											<div
+												class="w-1/4 text-wrap text-center flex flex-col text-white text-bold rounded-md bg-red-500 justify-center items-center mr-10 p-2"
+											>
+												Open
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
